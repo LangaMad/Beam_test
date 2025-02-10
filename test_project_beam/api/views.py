@@ -2,6 +2,7 @@ from django.shortcuts import render
 from rest_framework import viewsets
 from .models import User, Profile, Product, Order
 from .serializers import UserSerializer, ProfileSerializer, ProductSerializer, OrderSerializer
+from django.views.generic import TemplateView
 # Create your views here.
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -21,6 +22,8 @@ class OrderViewSet(viewsets.ModelViewSet):
     serializer_class = OrderSerializer
 
 
+class IndexView(TemplateView):
+    template_name = 'index.html'
 
 
 

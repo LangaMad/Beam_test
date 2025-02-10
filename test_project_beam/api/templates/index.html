@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Page</title>
+    <script>
+        const socket = new WebSocket('ws://localhost:8000/ws/notifications/');
+        socket.onmessage = function(event) {
+            const data = JSON.parse(event.data);
+            alert(data.message);
+        };
+
+        async function createUser() {
+            const response = await fetch('/api/users/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ name: 'New User', email: 'newuser@example.com' }),
+            });
+            const data = await response.json();
+            console.log(data);
+        }
+
+        async function createProfile() {
+            const response = await fetch('/api/profiles/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ user: 1, bio: 'This is a bio' }),
+            });
+            const data = await response.json();
+            console.log(data);
+        }
+    </script>
+</head>
+<body>
+    <h1>Test CRUD Operations</h1>
+    <button onclick="createUser()">Create User</button>
+    <button onclick="createProfile()">Create Profile</button>
+</body>
+</html>
